@@ -1,0 +1,84 @@
+import pandas as pd
+import numpy as np
+
+# Load Dataset
+df = pd.read_csv('dataset_Facebook.csv', sep=';')
+
+# Display first 5 rows
+print(df.head())
+
+# =========================
+# Create Data Subsets
+# =========================
+
+subset1 = df.head(10)
+print(subset1)
+
+subset2 = df[['Type', 'Category', 'like']]
+print(subset2.head())
+
+subset3 = df.loc[0:5, ['Type', 'comment', 'share']]
+print(subset3)
+
+subset4 = df.iloc[0:5, 0:4]
+print(subset4)
+
+# =========================
+# Merge Data
+# =========================
+
+part1 = df.iloc[:250]
+part2 = df.iloc[250:]
+
+merged_vertical = pd.concat([part1, part2], axis=0, ignore_index=True)
+print(merged_vertical.head())
+
+left = df[['Type', 'Category']]
+right = df[['like', 'share']]
+
+merged_horizontal = pd.concat([left, right], axis=1)
+print(merged_horizontal.head())
+
+# =========================
+# Sort Data
+# =========================
+
+sorted_data = df.sort_values(by='like', ascending=True)
+print(sorted_data[['Type', 'like']].head())
+
+# =========================
+# Transpose Data
+# =========================
+
+transposed_data = df.head(5).T
+print(transposed_data)
+
+# =========================
+# Shape of Dataset
+# =========================
+
+print(df.shape)
+
+# =========================
+# Reshape Data
+# =========================
+
+array = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
+
+reshapeArr = array.reshape(4,3)
+print(reshapeArr)
+
+reshapeArr2 = array.reshape(2,3,2)
+print(reshapeArr2)
+
+# =========================
+# Null Values
+# =========================
+
+print(df.isnull().sum())
+
+# =========================
+# Statistical Summary
+# =========================
+
+print(df.describe())
