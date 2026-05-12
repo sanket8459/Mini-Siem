@@ -1,0 +1,53 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+df=pd.read_csv('heart_diseases.csv')
+df
+
+df.columns
+
+
+plt.figure(figsize=(10,6))
+sns.heatmap(df.corr(),cmap='YlGnBu',annot=True)
+
+
+sns.lineplot(data=df,x=df.age,y=df.cp,hue='target')
+
+
+sns.lineplot(data=df,x=df.age,y=df.chol,hue='target')
+
+
+sns.lineplot(data=df,x=df.age,y=df.trestbps,hue='target')
+
+
+sns.histplot(data=df,x=df.target,hue=df.sex)
+
+
+sns.histplot(data=df,x=df.cp,hue=df.sex)
+
+
+sns.histplot(data=df,x=df.cp,hue='target')
+
+
+sns.histplot(data=df,x=df['age'],hue='target')
+
+sns.histplot(data=df,x=df.trestbps,hue='target')
+
+temp_df=df[['age','cp','trestbps','chol','fbs','oldpeak','target']]
+plt.figure(figsize=(15,10))
+sns.pairplot(temp_df,hue='target')
+plt.title("Looking for Insites in data")
+plt.legend("HeartDisease")
+plt.tight_layout()
+plt.plot()
+
+
+plt.figure(figsize=(15,10))
+for i, col in enumerate(temp_df.columns,1):
+    plt.subplot(4,3,i)
+    plt.title(f"Distribution of {col} Data")
+    sns.histplot(df[col],kde=True)
+    plt.tight_layout()
+    plt.plot()

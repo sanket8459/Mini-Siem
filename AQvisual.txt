@@ -1,0 +1,101 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+import warnings
+warnings.filterwarnings('ignore')
+
+%matplotlib inline
+
+
+df = pd.read_csv("AirQualityUCI.csv")
+df.sample(10)
+
+
+df.isnull().sum()
+
+
+sns.distplot(df["CO(GT)"])
+plt.show()
+
+
+plt.figure(figsize=(16, 10))
+# sns.set(style='whitegrid')
+sns.scatterplot(df["PT08.S2(NMHC)"], color="red", marker="s")
+sns.scatterplot(df["PT08.S3(NOx)"], color="maroon")
+plt.legend(["PT08.S2(NMHC)","PT08.S3(NOx)"])
+plt.xlabel("Total Value Count")
+plt.ylabel("Value")
+plt.show()
+
+
+
+plt.figure(figsize=(16, 10))
+plt.scatter(df['PT08.S1(CO)'], df['PT08.S2(NMHC)'], c=["r"], marker ="^", s=100)
+plt.scatter(df['PT08.S2(NMHC)'],df['PT08.S3(NOx)'] , c=["b"], marker ="s", s=30)
+
+
+
+sns.histplot(df['NOx(GT)'], kde=True)
+
+
+df.hist(figsize=(20,20),
+        grid=True,
+        bins=20,
+        color="maroon",
+        legend=True)
+plt.show()
+
+
+
+df.boxplot(figsize=(30,10),
+          color="maroon",
+          grid=True)
+
+
+
+x=df['PT08.S2(NMHC)']
+y=df['PT08.S3(NOx)']
+
+
+
+
+df.describe().T
+
+
+plt.scatter(df['PT08.S2(NMHC)'],df['PT08.S3(NOx)'], color='maroon', marker='.')
+plt.plot([x.max(),x.min()], [y.min(),y.max()],'--', c='b', marker="d")
+
+
+
+plt.scatter(df['PT08.S2(NMHC)'], df['NOx(GT)'])
+plt.plot([250,2214],[-150, 1479], "r-")
+
+
+plt.figure(figsize=(14,14))
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="Greens")
+plt.show()
+
+
+
+sns.pairplot(df)
+
+
+plt.figure(figsize=(1, 6))
+
+sns.violinplot(df["CO(GT)"])
+
+
+
+fig = plt.figure(figsize=(2,4))
+
+ax = fig.add_axes([0,0,1,1])
+pl = ax.violinplot(df['PT08.S4(NO2)'])
+plt.show()
+
+
+
+
+
+
